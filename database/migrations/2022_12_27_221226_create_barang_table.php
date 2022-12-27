@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('lebar');
             $table->integer('tinggi');
             $table->integer('id_material');
+            $table->string('kode', 20)->unique();
 
             $table->timestamps();
         });
