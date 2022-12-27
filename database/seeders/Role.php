@@ -36,7 +36,7 @@ class Role extends Seeder
         ModelsRole::query()->create(
             [
                 'nama' => 'QC',
-                'keterangan' => 'Quality Controll'
+                'keterangan' => 'Quality Control'
             ]
         );
     }
