@@ -6,7 +6,7 @@ use App\Models\Kategori as ModelsKategori;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class Kategori extends Seeder
+class KategoriSeeder extends Seeder
 {
     /**
      * Run the database seeds.
