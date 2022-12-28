@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MaterialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +34,10 @@ Route::get("/kategori/{id}", [KategoriController::class, "show"]);
 Route::post("/kategori", [KategoriController::class, "store"]);
 Route::post("/kategori/{id}/edit", [KategoriController::class, "update"]);
 Route::post("/kategori/{id}/delete", [KategoriController::class, "destroy"]);
+
+// ----------( material )---------
+Route::get("/material", [MaterialController::class, "index"]);
+Route::get("/material/{id}", [MaterialController::class, "show"]);
+Route::post("/material", [MaterialController::class, "store"]);
+Route::post("/material/{id}/edit", [MaterialController::class, "update"]);
+Route::post("/material/{id}/delete", [MaterialController::class, "destroy"]);
