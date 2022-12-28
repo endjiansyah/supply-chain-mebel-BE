@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\KategoriController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,10 @@ Route::get("/barang/{id}", [BarangController::class, "show"]);
 Route::post("/barang", [BarangController::class, "store"]);
 Route::post("/barang/{id}/edit", [BarangController::class, "update"]);
 Route::post("/barang/{id}/delete", [BarangController::class, "destroy"]);
+
+// ----------( kategori )---------
+Route::get("/kategori", [KategoriController::class, "index"]);
+Route::get("/kategori/{id}", [KategoriController::class, "show"]);
+Route::post("/kategori", [KategoriController::class, "store"]);
+Route::post("/kategori/{id}/edit", [KategoriController::class, "update"]);
+Route::post("/kategori/{id}/delete", [KategoriController::class, "destroy"]);
