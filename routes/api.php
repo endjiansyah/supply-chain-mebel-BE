@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,3 +42,7 @@ Route::get("/material/{id}", [MaterialController::class, "show"]);
 Route::post("/material", [MaterialController::class, "store"]);
 Route::post("/material/{id}/edit", [MaterialController::class, "update"]);
 Route::post("/material/{id}/delete", [MaterialController::class, "destroy"]);
+
+// ----------( role )---------
+Route::get("/role", [RoleController::class, "index"]);
+Route::get("/role/{id}", [RoleController::class, "show"]);

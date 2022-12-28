@@ -35,6 +35,12 @@ class StatusSeeder extends Seeder
         );
         ModelsStatus::query()->create(
             [
+                'nama_status' => 'ditolak QC',
+                'keterangan' => 'barang produksi ditolak QC'
+            ]
+        );
+        ModelsStatus::query()->create(
+            [
                 'nama_status' => 'terkonfirmasi',
                 'keterangan' => 'sudah dikonfirmasi oleh quality control'
             ]
