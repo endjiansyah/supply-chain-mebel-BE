@@ -41,7 +41,7 @@ class UserController extends Controller
     function store(Request $request)
     {
         $payload = $request->all();
-        if (!isset($payload['nama_user'])) {
+        if (!isset($payload['nama'])) {
             return response()->json([
                 "status" => false,
                 "message" => "user kosong",

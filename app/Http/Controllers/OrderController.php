@@ -40,10 +40,10 @@ class OrderController extends Controller
     function store(Request $request)
     {
         $payload = $request->all();
-        if (!isset($payload['nama_order'])) {
+        if (!isset($payload['id_barang'])) {
             return response()->json([
                 "status" => false,
-                "message" => "nama_order kosong",
+                "message" => "id_barang kosong",
                 "data" => null
             ]);
         }
