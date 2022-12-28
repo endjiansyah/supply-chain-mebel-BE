@@ -37,7 +37,6 @@ class KategoriController extends Controller
         ]);
     }
 
-
     function store(Request $request)
     {
         $payload = $request->all();

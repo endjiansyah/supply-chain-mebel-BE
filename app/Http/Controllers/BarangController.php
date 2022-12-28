@@ -9,7 +9,13 @@ class BarangController extends Controller
 {
     function index()
     {
-        $barang = Barang::query()->get();
+        $barang = Barang::query()
+            ->join('kategori', 'barang.id_kategori', '=', 'kategori.id')
+            ->join('material', 'barang.id_material', '=', 'material.id')
+            ->select('barang.*', 'kategori.nama_kategori', 'material.nama_material')
+            ->orderBy('barang.kode')
+            ->get();
+        // $barang = Barang::query()->get();
 
         return response()->json([
             "status" => true,

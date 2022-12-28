@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MaterialController;
@@ -67,3 +68,7 @@ Route::post("/order/{id}/delete", [OrderController::class, "destroy"]);
 // ----------( status )---------
 Route::get("/status", [StatusController::class, "index"]);
 Route::get("/status/{id}", [StatusController::class, "show"]);
+
+// ---------{Sanctum}-------
+Route::post("/login", [AuthController::class, "login"]);
+Route::get("/me", [AuthController::class, "getUser"])->middleware("auth:sanctum");
