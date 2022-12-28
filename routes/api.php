@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,3 +47,10 @@ Route::post("/material/{id}/delete", [MaterialController::class, "destroy"]);
 // ----------( role )---------
 Route::get("/role", [RoleController::class, "index"]);
 Route::get("/role/{id}", [RoleController::class, "show"]);
+
+// ----------( user )---------
+Route::get("/user", [UserController::class, "index"]);
+Route::get("/user/{id}", [UserController::class, "show"]);
+Route::post("/user", [UserController::class, "store"]);
+Route::post("/user/{id}/edit", [UserController::class, "update"]);
+Route::post("/user/{id}/delete", [UserController::class, "destroy"]);
