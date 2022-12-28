@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -54,3 +55,10 @@ Route::get("/user/{id}", [UserController::class, "show"]);
 Route::post("/user", [UserController::class, "store"]);
 Route::post("/user/{id}/edit", [UserController::class, "update"]);
 Route::post("/user/{id}/delete", [UserController::class, "destroy"]);
+
+// ----------( order )---------
+Route::get("/order", [OrderController::class, "index"]);
+Route::get("/order/{id}", [OrderController::class, "show"]);
+Route::post("/order", [OrderController::class, "store"]);
+Route::post("/order/{id}/edit", [OrderController::class, "update"]);
+Route::post("/order/{id}/delete", [OrderController::class, "destroy"]);
