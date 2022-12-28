@@ -5,6 +5,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -62,3 +63,7 @@ Route::get("/order/{id}", [OrderController::class, "show"]);
 Route::post("/order", [OrderController::class, "store"]);
 Route::post("/order/{id}/edit", [OrderController::class, "update"]);
 Route::post("/order/{id}/delete", [OrderController::class, "destroy"]);
+
+// ----------( status )---------
+Route::get("/status", [StatusController::class, "index"]);
+Route::get("/status/{id}", [StatusController::class, "show"]);
