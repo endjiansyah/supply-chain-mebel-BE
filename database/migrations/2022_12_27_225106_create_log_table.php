@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('id_order');
             $table->integer('id_status');
             $table->text('keterangan');
+            $table->boolean('aktif')->default(true);
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_material', 50);
             $table->text('keterangan')->nullable();
+            $table->boolean('aktif')->default(true);
             $table->timestamps();
         });
     }

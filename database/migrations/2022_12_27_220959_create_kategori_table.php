@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_kategori', 50);
             $table->string('kode', 5)->unique();
+            $table->boolean('aktif')->default(true);
             $table->timestamps();
         });
     }

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('tinggi');
             $table->integer('id_material');
             $table->string('kode', 20)->nullable();
+            $table->boolean('aktif')->default(true);
 
             $table->timestamps();
         });

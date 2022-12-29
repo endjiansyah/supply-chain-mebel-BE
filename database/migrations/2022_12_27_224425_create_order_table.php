@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('id_barang');
             $table->text('attachment')->nullable();
             $table->string('kode',100)->nullable();
+            $table->boolean('aktif')->default(true);
             $table->timestamps();
         });
     }

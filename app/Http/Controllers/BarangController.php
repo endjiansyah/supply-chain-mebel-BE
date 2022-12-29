@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -13,7 +14,8 @@ class BarangController extends Controller
             ->join('kategori', 'barang.id_kategori', '=', 'kategori.id')
             ->join('material', 'barang.id_material', '=', 'material.id')
             ->select('barang.*', 'kategori.nama_kategori', 'material.nama_material')
-            ->orderBy('barang.kode')
+            ->orderBy('barang.id','desc')
+            ->where('barang.aktif', true)
             ->get();
         // $barang = Barang::query()->get();
 
@@ -26,7 +28,12 @@ class BarangController extends Controller
 
     function show($id)
     {
-        $barang = Barang::query()->where("id", $id)->first();
+        $barang = Barang::query()
+            ->join('kategori', 'barang.id_kategori', '=', 'kategori.id')
+            ->join('material', 'barang.id_material', '=', 'material.id')
+            ->select('barang.*', 'kategori.nama_kategori', 'material.nama_material')
+            ->where("barang.id", $id)
+            ->first();
 
         if (!isset($barang)) {
             return response()->json([
@@ -61,9 +68,16 @@ class BarangController extends Controller
         $payload['gambar'] =  $path;
 
         $barang = Barang::query()->create($payload);
+        $kategori = Kategori::query()->where("id", $payload['id_kategori'])->first();
+        $kode = $kategori['kode'].$barang['id'];
+        $ngisikode = [
+            'kode' => $kode
+        ];
+        $barang->fill($ngisikode);
+        $barang->save();
         return response()->json([
             "status" => true,
-            "message" => "data tersimpan",
+            "message" => "data tersimpan dengan kode [ ".$kode." ]",
             "data" => $barang
         ]);
     }
@@ -103,7 +117,7 @@ class BarangController extends Controller
         ]);
     }
 
-    function destroy(Request $request, $id)
+    function destroy($id)
     {
         $barang = Barang::query()->where("id", $id)->first();
         if (!isset($barang)) {
@@ -114,12 +128,12 @@ class BarangController extends Controller
             ]);
         }
 
-        if ($barang->gambar != '') {
-            $lokasigambar = str_replace($request->getSchemeAndHttpHost(), '', $barang->gambar);
-            $gambar = public_path($lokasigambar);
-            unlink($gambar);
-        }
-        $barang->delete();
+        $payload = [
+            'aktif' => false
+        ];
+
+        $barang->fill($payload);
+        $barang->save();
 
         return response()->json([
             "status" => true,
