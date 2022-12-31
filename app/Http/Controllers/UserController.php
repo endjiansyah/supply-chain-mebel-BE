@@ -9,7 +9,11 @@ class UserController extends Controller
 {
     function index()
     {
-        $user = User::query()->get();
+        $user = User::query()
+            ->join('role', 'user.id_role', '=', 'role.id')
+            ->select('user.*', 'role.nama as nama_role', 'role.keterangan as keterangan_role')
+            ->orderBy('user.id_role','asc')
+            ->get();
 
         return response()->json([
             "status" => true,
@@ -20,7 +24,11 @@ class UserController extends Controller
 
     function show($id)
     {
-        $user = User::query()->where("id", $id)->first();
+        $user = User::query()
+            ->join('role', 'user.id_role', '=', 'role.id')
+            ->select('user.*', 'role.nama as nama_role', 'role.keterangan as keterangan_role')
+            ->where("user.id", $id)
+            ->first();
 
         if (!isset($user)) {
             return response()->json([
@@ -52,7 +60,7 @@ class UserController extends Controller
         $user = User::query()->create($payload);
         return response()->json([
             "status" => true,
-            "message" => "data tersimpan",
+            "message" => "data ".$user['nama']." tersimpan",
             "data" => $user
         ]);
     }
@@ -91,7 +99,12 @@ class UserController extends Controller
             ]);
         }
 
-        $user->delete();
+        $payload = [
+            'aktif' => false
+        ];
+
+        $user->fill($payload);
+        $user->save();
 
         return response()->json([
             "status" => true,

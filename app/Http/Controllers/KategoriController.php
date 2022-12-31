@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,11 @@ class KategoriController extends Controller
 {
     function index()
     {
-        $kategori = Kategori::query()->get();
+        $kategori = Kategori::query()
+                    ->leftjoin('barang', 'barang.id_kategori', '=', 'kategori.id')
+                    ->select(Barang::raw('count(barang.id) as total,kategori.*'))
+                    ->groupBy('kategori.id')
+                    ->get();
 
         return response()->json([
             "status" => true,
@@ -21,7 +26,6 @@ class KategoriController extends Controller
     function show($id)
     {
         $kategori = Kategori::query()->where("id", $id)->first();
-
         if (!isset($kategori)) {
             return response()->json([
                 "status" => false,
@@ -59,6 +63,7 @@ class KategoriController extends Controller
     function update(Request $request, $id)
     {
         $kategori = Kategori::query()->where("id", $id)->first();
+        // $kategori = Barang::query()->where("id_kategori", $id)->count();
         if (!isset($kategori)) {
             return response()->json([
                 "status" => false,

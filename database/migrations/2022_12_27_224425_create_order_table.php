@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_barang');
             $table->text('attachment')->nullable();
             $table->string('kode',100)->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->integer('id_barang');
+            $table->integer('id_user');
+            $table->integer('status')->default('1');
             $table->boolean('aktif')->default(true);
             $table->timestamps();
         });

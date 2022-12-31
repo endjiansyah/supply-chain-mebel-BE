@@ -56,6 +56,7 @@ Route::get("/user", [UserController::class, "index"]);
 Route::get("/user/{id}", [UserController::class, "show"]);
 Route::post("/user", [UserController::class, "store"]);
 Route::post("/user/{id}/edit", [UserController::class, "update"]);
+// Route::post("/user/{id}/reset", [UserController::class, "resetpass"]);
 Route::post("/user/{id}/delete", [UserController::class, "destroy"]);
 
 // ----------( order )---------

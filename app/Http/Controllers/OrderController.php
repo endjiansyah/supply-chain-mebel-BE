@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,14 @@ class OrderController extends Controller
 {
     function index()
     {
-        $order = Order::query()->get();
+        $order = Order::query()
+        ->join('user', 'order.id_user', '=', 'user.id')
+        ->join('barang', 'order.id_barang', '=', 'barang.id')
+        ->join('status', 'order.status', '=', 'status.id')
+            ->select('order.*', 'barang.nama_barang', 'user.nama as nama_user','status.nama_status')
+            ->orderBy('order.status','asc')
+            ->orderBy('order.created_at','desc')
+        ->get();
 
         return response()->json([
             "status" => true,
@@ -20,7 +28,11 @@ class OrderController extends Controller
 
     function show($id)
     {
-        $order = Order::query()->where("id", $id)->first();
+        $order = Order::query()
+        ->join('status', 'order.status', '=', 'status.id')
+        ->select('order.*','status.nama_status')
+        ->where("order.id", $id)
+        ->first();
 
         if (!isset($order)) {
             return response()->json([
@@ -48,16 +60,19 @@ class OrderController extends Controller
             ]);
         }
 
-        $file = $request->file("attachment");
-        $filename = $file->hashName();
-        $file->move("foto", $filename);
-        $path = $request->getSchemeAndHttpHost() . "/foto/" . $filename;
-        $payload['attachment'] =  $path;
-
         $order = Order::query()->create($payload);
+        // ------
+        $barang = Barang::query()->where("id", $payload['id_barang'])->first();
+        $kode = 'O'.$order['id'].$barang['kode'];
+        $ngisikode = [
+            'kode' => $kode
+        ];
+        $order->fill($ngisikode);
+        $order->save();
+        // -------
         return response()->json([
             "status" => true,
-            "message" => "data tersimpan",
+            "message" => "data tersimpan dengan kode ".$kode,
             "data" => $order
         ]);
     }
@@ -92,7 +107,7 @@ class OrderController extends Controller
 
         return response()->json([
             "status" => true,
-            "message" => "perubahan data tersimpan",
+            "message" => "Status berhasil diubah",
             "data" => $order
         ]);
     }

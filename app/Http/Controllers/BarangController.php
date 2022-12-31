@@ -61,11 +61,13 @@ class BarangController extends Controller
             ]);
         }
 
+        //-----
         $file = $request->file("gambar");
         $filename = $file->hashName();
         $file->move("foto", $filename);
         $path = $request->getSchemeAndHttpHost() . "/foto/" . $filename;
         $payload['gambar'] =  $path;
+         //----
 
         $barang = Barang::query()->create($payload);
         $kategori = Kategori::query()->where("id", $payload['id_kategori'])->first();
@@ -75,6 +77,7 @@ class BarangController extends Controller
         ];
         $barang->fill($ngisikode);
         $barang->save();
+        
         return response()->json([
             "status" => true,
             "message" => "data tersimpan dengan kode [ ".$kode." ]",

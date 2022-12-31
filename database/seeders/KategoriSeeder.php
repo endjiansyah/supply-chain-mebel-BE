@@ -35,7 +35,7 @@ class KategoriSeeder extends Seeder
         );
         ModelsKategori::query()->create(
             [
-                'nama_kategori' => 'Kasur',
+                'nama_kategori' => 'Tempat Tidur',
                 'kode' => 'BD'
             ]
         );
