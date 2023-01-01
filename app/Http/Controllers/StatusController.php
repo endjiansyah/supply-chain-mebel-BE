@@ -18,22 +18,4 @@ class StatusController extends Controller
         ]);
     }
 
-    function show($id)
-    {
-        $status = Status::query()->where("id", $id)->first();
-
-        if (!isset($status)) {
-            return response()->json([
-                "status" => false,
-                "message" => "luru nopo mas?",
-                "data" => null
-            ]);
-        }
-
-        return response()->json([
-            "status" => true,
-            "message" => "nyoh",
-            "data" => $status
-        ]);
-    }
 }
