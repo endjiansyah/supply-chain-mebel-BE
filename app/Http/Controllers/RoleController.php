@@ -18,22 +18,4 @@ class RoleController extends Controller
         ]);
     }
 
-    function show($id)
-    {
-        $role = Role::query()->where("id", $id)->first();
-
-        if (!isset($role)) {
-            return response()->json([
-                "status" => false,
-                "message" => "luru nopo mas?",
-                "data" => null
-            ]);
-        }
-
-        return response()->json([
-            "status" => true,
-            "message" => "nyoh",
-            "data" => $role
-        ]);
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Material;
 use Illuminate\Http\Request;
 
@@ -9,30 +10,14 @@ class MaterialController extends Controller
 {
     function index()
     {
-        $material = Material::query()->get();
-
+        $material = Material::query()
+                    ->leftjoin('barang', 'barang.id_material', '=', 'material.id')
+                    ->select(Barang::raw('count(barang.id) as total,material.*'))
+                    ->groupBy('material.id')
+                    ->get();
         return response()->json([
             "status" => true,
             "message" => "list material",
-            "data" => $material
-        ]);
-    }
-
-    function show($id)
-    {
-        $material = Material::query()->where("id", $id)->first();
-
-        if (!isset($material)) {
-            return response()->json([
-                "status" => false,
-                "message" => "luru nopo mas?",
-                "data" => null
-            ]);
-        }
-
-        return response()->json([
-            "status" => true,
-            "message" => "nyoh",
             "data" => $material
         ]);
     }

@@ -36,28 +36,24 @@ Route::post("/barang/{id}/delete", [BarangController::class, "destroy"]);
 
 // ----------( kategori )---------
 Route::get("/kategori", [KategoriController::class, "index"]);
-Route::get("/kategori/{id}", [KategoriController::class, "show"]);
 Route::post("/kategori", [KategoriController::class, "store"]);
 Route::post("/kategori/{id}/edit", [KategoriController::class, "update"]);
 Route::post("/kategori/{id}/delete", [KategoriController::class, "destroy"]);
 
 // ----------( material )---------
 Route::get("/material", [MaterialController::class, "index"]);
-Route::get("/material/{id}", [MaterialController::class, "show"]);
 Route::post("/material", [MaterialController::class, "store"]);
 Route::post("/material/{id}/edit", [MaterialController::class, "update"]);
 Route::post("/material/{id}/delete", [MaterialController::class, "destroy"]);
 
 // ----------( role )---------
 Route::get("/role", [RoleController::class, "index"]);
-Route::get("/role/{id}", [RoleController::class, "show"]);
 
 // ----------( user )---------
 Route::get("/user", [UserController::class, "index"]);
 Route::get("/user/{id}", [UserController::class, "show"]);
 Route::post("/user", [UserController::class, "store"]);
 Route::post("/user/{id}/edit", [UserController::class, "update"]);
-// Route::post("/user/{id}/reset", [UserController::class, "resetpass"]);
 Route::post("/user/{id}/delete", [UserController::class, "destroy"]);
 
 // ----------( order )---------
@@ -72,7 +68,6 @@ Route::get("/log/{id}", [LogController::class, "show"]);
 Route::post("/log", [LogController::class, "store"]);
 // ----------( status )---------
 Route::get("/status", [StatusController::class, "index"]);
-Route::get("/status/{id}", [StatusController::class, "show"]);
 
 // ---------{Sanctum}-------
 Route::post("/login", [AuthController::class, "login"]);
