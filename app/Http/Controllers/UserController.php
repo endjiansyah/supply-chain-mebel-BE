@@ -12,6 +12,7 @@ class UserController extends Controller
         $user = User::query()
             ->join('role', 'user.id_role', '=', 'role.id')
             ->select('user.*', 'role.nama as nama_role', 'role.keterangan as keterangan_role')
+            ->where('aktif',true)
             ->orderBy('user.id_role','asc')
             ->get();
 
