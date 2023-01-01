@@ -55,7 +55,7 @@ class OrderController extends Controller
         if (!isset($payload['id_barang'])) {
             return response()->json([
                 "status" => false,
-                "message" => "id_barang kosong",
+                "message" => "barang kosong",
                 "data" => null
             ]);
         }
@@ -89,18 +89,6 @@ class OrderController extends Controller
         }
 
         $payload = $request->all();
-
-        if ($request->hasFile('attachment')) {
-            $file = $request->file('attachment');
-            $filename = $file->hashName();
-            $file->move('foto', $filename);
-            $path = $request->getSchemeAndHttpHost() . '/foto/' . $filename;
-            $payload['attachment'] = $path;
-
-            $lokasiattachment = str_replace($request->getSchemeAndHttpHost(), '', $order->attachment);
-            $attachment = public_path($lokasiattachment);
-            unlink($attachment);
-        }
 
         $order->fill($payload);
         $order->save();

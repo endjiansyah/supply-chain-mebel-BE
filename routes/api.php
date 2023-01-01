@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RoleController;
@@ -66,6 +67,9 @@ Route::post("/order", [OrderController::class, "store"]);
 Route::post("/order/{id}/edit", [OrderController::class, "update"]);
 Route::post("/order/{id}/delete", [OrderController::class, "destroy"]);
 
+// ----------( log )---------
+Route::get("/log/{id}", [LogController::class, "show"]);
+Route::post("/log", [LogController::class, "store"]);
 // ----------( status )---------
 Route::get("/status", [StatusController::class, "index"]);
 Route::get("/status/{id}", [StatusController::class, "show"]);
