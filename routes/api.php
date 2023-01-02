@@ -33,6 +33,8 @@ Route::get("/barang/{id}", [BarangController::class, "show"]);
 Route::post("/barang", [BarangController::class, "store"]);
 Route::post("/barang/{id}/edit", [BarangController::class, "update"]);
 Route::post("/barang/{id}/delete", [BarangController::class, "destroy"]);
+Route::get("/barangrecycle", [BarangController::class, "recyclebin"]);
+Route::post("/barang/{id}/recycle", [BarangController::class, "recycle"]);
 
 // ----------( kategori )---------
 Route::get("/kategori", [KategoriController::class, "index"]);

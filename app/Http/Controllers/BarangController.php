@@ -144,4 +144,47 @@ class BarangController extends Controller
             "data" => $barang
         ]);
     }
+    
+    function recyclebin()
+    {
+        $barang = Barang::query()
+            ->join('kategori', 'barang.id_kategori', '=', 'kategori.id')
+            ->join('material', 'barang.id_material', '=', 'material.id')
+            ->select('barang.*', 'kategori.nama_kategori', 'material.nama_material')
+            ->orderBy('barang.id','desc')
+            ->where('barang.aktif', false)
+            ->get();
+        // $barang = Barang::query()->get();
+
+        return response()->json([
+            "status" => true,
+            "message" => "list barang",
+            "data" => $barang
+        ]);
+    }
+
+    function recycle($id)
+    {
+        $barang = Barang::query()->where("id", $id)->first();
+        if (!isset($barang)) {
+            return response()->json([
+                "status" => false,
+                "message" => "luru nopo mas?",
+                "data" => null
+            ]);
+        }
+
+        $payload = [
+            'aktif' => true
+        ];
+
+        $barang->fill($payload);
+        $barang->save();
+
+        return response()->json([
+            "status" => true,
+            "message" => "EDO TENSEI [".$barang['kode']."] ".$barang['nama_barang'],
+            "data" => $barang
+        ]);
+    }
 }
